@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NSW Ambulance – Shocktober Awareness</title>
+  <meta name="description" content="Official NSW Ambulance Shocktober page. Call · Push · Shock. Learn CPR and AED use." />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --nsw-blue:#002664; --nsw-red:#c8102e; --nsw-gold:#ffd100;
+      --grey-900:#222; --grey-700:#444; --grey-500:#777;
+      --border:#e6e9ef; --bg:#ffffff; --tile:#f6f8fc;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;font-family:"Noto Sans","Open Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--grey-900);}    
+    a{color:var(--nsw-blue);text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    /* Header */
+    .topbar{border-bottom:1px solid var(--border);background:#fff;position:sticky;top:0;z-index:1000}
+    .wrap{width:min(1280px,94vw);margin:0 auto;display:flex;align-items:center;gap:24px;padding:14px 0}
+    .logo{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--nsw-blue)}
+    .logo img{width:38px;height:38px;object-fit:contain}
+    nav{margin-left:auto}
+    nav ul{list-style:none;display:flex;gap:18px;margin:0;padding:0}
+    nav a{color:var(--nsw-blue);font-weight:600;padding:6px 8px;border-radius:6px}
+    nav a:hover{background:#eef3ff;text-decoration:none}
+    .menu-btn{display:none;margin-left:auto;border:1px solid var(--border);padding:6px 10px;border-radius:6px;background:#fff}
+    @media (max-width: 800px){
+      nav{display:none}
+      .menu-btn{display:block}
+      .menu-open nav{display:block;position:absolute;top:56px;left:0;right:0;background:#fff;border-bottom:1px solid var(--border)}
+      .menu-open nav ul{flex-direction:column;padding:10px 16px}
+    }
+
+    /* Breadcrumbs */
+    .crumbs{background:#f9fbff;border-bottom:1px solid var(--border);font-size:14px}
+    .crumbs .wrap{padding:10px 0}
+    .crumbs a{color:#4a66a6}
+
+    /* Hero */
+    .hero{position:relative}
+    .hero img{display:block;width:100%;height:clamp(220px,38vw,420px);object-fit:cover}
+
+    /* Watermark */
+    .wm{position:fixed;left:50%;transform:translateX(-50%);bottom:10vh;width:min(340px,70vw);opacity:.04;pointer-events:none;z-index:0;filter:grayscale(1) contrast(1.05)}
+
+    /* Layout */
+    main{position:relative;z-index:1}
+    .content{width:min(1280px,94vw);margin:24px auto;display:grid;grid-template-columns:2fr 1fr;gap:28px}
+    @media (max-width: 980px){.content{grid-template-columns:1fr}}
+
+    h1{font-size:clamp(26px,2.4vw,36px);margin:4px 0 10px;color:var(--nsw-blue)}
+    h2{font-size:clamp(22px,2vw,28px);margin:24px 0 12px;color:var(--nsw-blue)}
+    p{line-height:1.6;color:var(--grey-700)}
+
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0 8px}
+    .btn{display:inline-block;padding:12px 16px;border-radius:6px;font-weight:700;border:2px solid transparent}
+    .btn-primary{background:var(--nsw-red);color:#fff;border-color:var(--nsw-red)}
+    .btn-primary:hover{filter:brightness(0.95);text-decoration:none}
+    .btn-secondary{background:#ffffff;color:var(--nsw-blue);border-color:#cdd6ef}
+    .btn-secondary:hover{background:#eef3ff;text-decoration:none}
+
+    /* Info tiles */
+    .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:14px}
+    .tile{background:var(--tile);border:1px solid var(--border);border-radius:10px;padding:16px;position:relative}
+    .tile h3{margin:0 0 8px;color:var(--nsw-blue)}
+    .tile p{margin:0 0 6px}
+    .verified{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:10px;line-height:1;color:#6e5800;background:#fff8cc;border:1px solid #f1d36a;border-radius:999px;padding:3px 8px}
+    .verified::before{content:'✔';font-weight:700}
+
+    /* Aside promo */
+    .aside{display:flex;flex-direction:column;gap:16px}
+    .promo{background:#fff;border:1px solid var(--border);border-left:4px solid var(--nsw-blue);border-radius:10px;padding:16px}
+    .promo h4{margin:0 0 6px;color:var(--nsw-blue)}
+    .promo p{margin:0 0 10px}
+
+    /* Staff cards */
+    .staff{margin-top:24px;border-top:1px solid var(--border);padding-top:20px}
+    .stafflist{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    @media (max-width: 700px){.stafflist{grid-template-columns:1fr}}
+    .card{display:flex;gap:12px;background:#fff;border:1px solid var(--border);border-radius:10px;padding:12px;align-items:center;transition:all .25s ease}
+    .card img{width:56px;height:56px;border-radius:50%;border:2px solid var(--nsw-gold);object-fit:cover;transition:all .25s ease}
+    .card h5{margin:0;color:var(--nsw-blue)}
+    .card small{color:var(--grey-500)}
+
+    /* CONTACT CARD ENHANCEMENTS */
+    #avatar-commissioner{border-color:#ff69b4;box-shadow:0 0 8px rgba(255,105,180,.5);}
+    #avatar-dcom{border-color:#3b82f6;box-shadow:0 0 8px rgba(59,130,246,.5);}
+    #avatar-commissioner:hover{box-shadow:0 0 16px rgba(255,105,180,.9);transform:scale(1.05);}
+    #avatar-dcom:hover{box-shadow:0 0 16px rgba(59,130,246,.9);transform:scale(1.05);}
+    #contacts .card:hover{transform:scale(1.03);box-shadow:0 8px 20px rgba(0,0,0,.15);}
+    @media(max-width:700px){
+      #contacts .card{width:90%;margin:auto;}
+    }
+
+    /* Footer */
+    footer{margin-top:36px;border-top:1px solid var(--border);background:#fff}
+    .footer-inner{width:min(1280px,94vw);margin:0 auto;padding:18px 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:var(--grey-700)}
+    .foot-links{display:flex;gap:16px;flex-wrap:wrap}
+    .hidden{display:none!important}
+  </style>
+</head>
+<body>
+  <header class="topbar" id="top">
+    <div class="wrap">
+      <div class="logo">
+        <img id="crest" src="https://kappa.lol/wt8yq8" alt="NSW Ambulance crest" onerror="this.onerror=null;this.src='https://kappa.lol/wt8yq8'">
+        <span>NSW Ambulance</span>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">Menu</button>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#shocktober">Shocktober</a></li>
+          <li><a href="#resources">Resources</a></li>
+          <li><a href="#contacts">Contacts</a></li>
+          <li><a id="nav-official" href="https://www.ambulance.nsw.gov.au" target="_blank" rel="noopener">Official site</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="crumbs">
+      <div class="wrap" aria-label="Breadcrumb">
+        <a href="#top">Home</a> › <a href="#shocktober">Campaigns</a> › <strong>Shocktober Awareness</strong>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Shocktober banner">
+    <img id="hero" src="https://kappa.lol/wfvO1q" alt="NSW Ambulance paramedics" onerror="this.onerror=null;this.src='https://www.ambulance.nsw.gov.au/__data/assets/image/0019/1127062/paramedics_banner.jpg'">
+  </section>
+
+  <img class="wm" id="wm" src="https://kappa.lol/wt8yq8" alt="Watermark crest" onerror="this.onerror=null;this.src='https://upload.wikimedia.org/wikipedia/commons/2/25/New_South_Wales_Ambulance_Crest.png'">
+
+  <main>
+    <div class="content" id="shocktober">
+      <article>
+        <h1>Shocktober Awareness</h1>
+        <p><strong>Call · Push · Shock.</strong> Every October, NSW Ambulance highlights the importance of early CPR and public access defibrillation.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" id="link-cpr" href="https://www.ambulance.nsw.gov.au/get-involved/goodsam/become-a-volunteer/cpr" target="_blank" rel="noopener">Be a lifesaver: Learn CPR</a>
+          <a class="btn btn-secondary" id="link-aed" href="https://www.ambulance.nsw.gov.au/get-involved/goodsam/locate-an-aed" target="_blank" rel="noopener">Locate an AED</a>
+        </div>
+
+        <h2 id="resources">Resources</h2>
+        <div class="tiles">
+          <div class="tile">
+            <h3>NSW Ambulance CPR Chart</h3>
+            <p>Official bystander CPR reference to print for training rooms and stations.</p>
+            <p><a id="link-cpr-chart" href="https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0006/976398/NSW-Ambulance-CPR-chart.pdf" target="_blank" rel="noopener">View CPR Chart (PDF)</a></p>
+            <span class="verified">Verified NSW Source</span>
+          </div>
+          <div class="tile">
+            <h3>Station &amp; Zone Maps</h3>
+            <p>Understand NSW regions and coverage for dispatch realism.</p>
+            <p><a id="link-station-maps" href="https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0004/509278/NSW-Ambulance-stations-maps.pdf" target="_blank" rel="noopener">Download Station Maps (PDF)</a></p>
+            <span class="verified">Verified NSW Source</span>
+          </div>
+          <div class="tile">
+            <h3>GoodSAM Training</h3>
+            <p>Presentation for AED awareness and community responder onboarding.</p>
+            <p><a id="link-goodsam-training" href="https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0016/922102/GoodSAM-Training-Powerpoint-Presentation.pdf" target="_blank" rel="noopener">Open Training (PDF)</a></p>
+            <span class="verified">Verified NSW Source</span>
+          </div>
+          <div class="tile">
+            <h3>Clinical / WHS Plans</h3>
+            <p>Public plans and strategies to mirror official tone and policies.</p>
+            <p><a id="link-clinical-plan" href="https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0011/924509/Clinical-Services-Plan-2024-2029.pdf" target="_blank" rel="noopener">Clinical Services Plan 2024–2029</a></p>
+            <p><a id="link-whs" href="https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0007/1006729/NSW-Ambulance-Work-Health-and-Safety-Strategy-2025-2028.pdf" target="_blank" rel="noopener">WHS Strategy 2025–2028</a></p>
+            <span class="verified">Verified NSW Source</span>
+          </div>
+        </div>
+
+        <!-- CONTACTS SECTION (Enhanced) -->
+        <section class="staff" id="contacts" aria-label="Contacts">
+          <h2>Contacts</h2>
+          <div class="stafflist">
+            <div class="card" id="card-diego">
+              <img id="avatar-commissioner" src="https://cdn-icons-png.flaticon.com/512/3774/3774270.png" alt="Commissioner portrait">
+              <div>
+                <h5 id="name-commissioner">Commissioner Diego Lopez-Moore</h5>
+                <small id="title-commissioner">NSW Ambulance Commissioner — Campaign Overseer</small><br>
+                <small id="email-commissioner">diego.moore@nswambulance.gov.ic</small>
+              </div>
+            </div>
+            <div class="card" id="card-medi">
+              <img id="avatar-dcom" src="https://kappa.lol/82mUM9" alt="dcom portrait">
+              <div>
+                <h5 id="name-dcom">Deputy Commissioner Medi Care</h5>
+                <small id="title-dcom">NSW Ambulance Deputy Commissioner - Campaign Overseer</small><br>
+                <small id="email-dcom">Guzzie@nswambulance.gov.au</small>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="aside" aria-label="AED Awareness">
+        <div class="promo">
+          <h4>Find an AED</h4>
+          <p>Check the NSW AED Registry map to see defibrillators near you.</p>
+          <a class="btn btn-secondary" id="link-aed-map" href="https://www.ambulance.nsw.gov.au/get-involved/goodsam/locate-an-aed" target="_blank" rel="noopener">Open AED Map</a>
+        </div>
+        <div class="promo">
+          <h4>Become a GoodSAM Volunteer</h4>
+          <p>Join thousands of responders who help before paramedics arrive.</p>
+          <a class="btn btn-primary" id="link-goodsam" href="https://www.ambulance.nsw.gov.au/get-involved/goodsam/become-a-volunteer" target="_blank" rel="noopener">Sign up to GoodSAM</a>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="foot-links">
+        <a href="#top">Back to top</a>
+        <a id="footer-official" href="https://www.ambulance.nsw.gov.au" target="_blank" rel="noopener">NSW Ambulance</a>
+        <a href="https://www.ambulance.nsw.gov.au/contact-us" target="_blank" rel="noopener">Contact</a>
+      </div>
+      <div>© <span id="year"></span> NSW Ambulance – Shocktober</div>
+    </div>
+  </footer>
+
+  <script>
+    window.NSW_CONFIG = {
+      heroSrc: 'https://kappa.lol/wfvO1q',
+      crestSrc: 'https://kappa.lol/wt8yq8',
+      watermarkSrc: 'https://kappa.lol/wt8yq8',
+      links: {
+        cpr: 'https://www.ambulance.nsw.gov.au/get-involved/goodsam/become-a-volunteer/cpr',
+        aed: 'https://www.ambulance.nsw.gov.au/get-involved/goodsam/locate-an-aed',
+        goodsam: 'https://www.ambulance.nsw.gov.au/get-involved/goodsam/become-a-volunteer',
+        cprChart: 'https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0006/976398/NSW-Ambulance-CPR-chart.pdf',
+        stationMaps: 'https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0004/509278/NSW-Ambulance-stations-maps.pdf',
+        goodsamTraining: 'https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0016/922102/GoodSAM-Training-Powerpoint-Presentation.pdf',
+        clinicalPlan: 'https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0011/924509/Clinical-Services-Plan-2024-2029.pdf',
+        whs: 'https://www.ambulance.nsw.gov.au/__data/assets/pdf_file/0007/1006729/NSW-Ambulance-Work-Health-and-Safety-Strategy-2025-2028.pdf',
+        official: 'https://www.ambulance.nsw.gov.au'
+      },
+      staff: {
+        commissioner: {
+          name: 'Commissioner Diego Lopez-Moore',
+          title: 'NSW Ambulance Commissioner - Campaign Overseer',
+          email: 'Spirit0001@nswambulance.gov.au',
+          avatar: 'https://kappa.lol/AQWrEz'
+        },
+        dcom: {
+          name: 'Deputy Comissioner Medi Care',
+          title: 'NSW Ambulance Deputy Commissioner - Campaign Overseer',
+          email: 'Guzzie@nswambulance.gov.au',
+          avatar: 'https://kappa.lol/u6axui'
+        }
+      },
+      badges: { text: 'Verified NSW Source' },
+      watermark: { enabled: true }
+    };
+
+    (function applyConfig(){
+      const C = window.NSW_CONFIG || {}; 
+      if(C.heroSrc) document.getElementById('hero').src = C.heroSrc;
+      if(C.crestSrc) document.getElementById('crest').src = C.crestSrc;
+      if(C.watermarkSrc) document.getElementById('wm').src = C.watermarkSrc;
+      if(C.watermark && C.watermark.enabled === false) document.getElementById('wm').classList.add('hidden');
+      const L = C.links||{};
+      const setHref=(id,url)=>{ if(url) { const el=document.getElementById(id); if(el) el.href=url; }}; 
+      setHref('link-cpr',L.cpr); setHref('link-aed',L.aed); setHref('link-aed-map',L.aed);
+      setHref('link-goodsam',L.goodsam); setHref('link-cpr-chart',L.cprChart);
+      setHref('link-station-maps',L.stationMaps); setHref('link-goodsam-training',L.goodsamTraining);
+      setHref('link-clinical-plan',L.clinicalPlan); setHref('link-whs',L.whs);
+      if(L.official){ document.getElementById('nav-official').href=L.official; document.getElementById('footer-official').href=L.official; }
+      const S=C.staff||{};
+      const fill=(p,key)=>{ if(!S[key]) return; const v=S[key];
+        const set=(id,val)=>{ const el=document.getElementById(id); if(el && val) el.textContent=val; };
+        const setSrc=(id,val)=>{ const el=document.getElementById(id); if(el && val) el.src=val; };
+        set('name-'+p,v.name); set('title-'+p,v.title); set('email-'+p,v.email); setSrc('avatar-'+p,v.avatar);
+      };
+      fill('commissioner','commissioner'); fill('dcom','dcom');
+      if(C.badges && C.badges.text){ document.querySelectorAll('.verified').forEach(b=>b.textContent=C.badges.text); }
+    })();
+
+    // === Hover Sound for Contacts ===
+    let audioCtx=null,unlocked=false,lastPlay=0;
+    function ensureAudioUnlocked(){
+      if(unlocked)return;
+      if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+      const unlock=()=>{
+        if(audioCtx.state==="suspended")audioCtx.resume().catch(()=>{});
+        unlocked=true;
+        document.removeEventListener("pointerdown",unlock);
+        document.removeEventListener("keydown",unlock);
+        document.removeEventListener("touchstart",unlock);
+      };
+      document.addEventListener("pointerdown",unlock,{once:true});
+      document.addEventListener("keydown",unlock,{once:true});
+      document.addEventListener("touchstart",unlock,{once:true});
+    }
+    function tone({f=900,color="warm",d=.14}){
+      if(!audioCtx)audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+      const t=audioCtx.currentTime,g=audioCtx.createGain();
+      g.gain.value=.3;
+      const o=audioCtx.createOscillator();
+      o.type=color==="warm"?"sine":"triangle";
+      o.frequency.value=f;
+      o.connect(g);g.connect(audioCtx.destination);
+      g.gain.setValueAtTime(.0001,t);
+      g.gain.linearRampToValueAtTime(.35,t+.01);
+      g.gain.exponentialRampToValueAtTime(.0001,t+d);
+      o.start(t);o.stop(t+d);
+    }
+    function playHover(which){
+      const now=performance.now();if(now-lastPlay<120)return;lastPlay=now;
+      if(!unlocked)ensureAudioUnlocked();
+      if(!audioCtx||audioCtx.state==="suspended")return;
+      if(which==="diego")tone({f:820,color:"warm"});
+      else tone({f:1150,color:"cool"});
+    }
+    document.addEventListener("DOMContentLoaded",()=>{
+      ensureAudioUnlocked();
+      const diego=document.getElementById("card-diego"),
+            medi=document.getElementById("card-medi");
+      diego?.addEventListener("mouseenter",()=>playHover("diego"));
+      medi?.addEventListener("mouseenter",()=>playHover("medi"));
+      document.getElementById('year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
